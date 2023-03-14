@@ -5,7 +5,8 @@ import cors from 'cors';
 import { usersRouter } from './routers/users.router.js';
 import createDebug from 'debug';
 import { CustomError } from './interfaces/error.js';
-import { __dirname } from './config.js';
+import { toysRouter } from './routers/toys.router.js';
+
 const debug = createDebug('PF:app');
 export const app = express();
 app.disable('x-powered-by');
@@ -22,28 +23,29 @@ app.use((_req, _resp, next) => {
   next();
 });
 
-debug({ __dirname });
-app.use(express.static(path.resolve(__dirname, 'public')));
+// Debug({ __dirname });
+// app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.use('/users', usersRouter);
+app.use('/toys', toysRouter);
 
-app.get('/', (_req, resp) => {
-  resp.json({
-    info: 'Silvia-Oliva-Final-Project-back-202301-mad',
-    endpoints: {
-      users: '/users',
-    },
-  });
-});
-app.get('/:id', (req, resp) => {
-  resp.send('Hola ' + req.params.id);
-});
-app.post('/', (req, resp) => {
-  req.body.id = 12;
-  resp.send(req.body);
-});
-app.patch('/:id');
-app.delete('/:id');
+// App.get('/', (_req, resp) => {
+//   resp.json({
+//     info: 'Silvia-Oliva-Final-Project-back-202301-mad',
+//     endpoints: {
+//       users: '/users',
+//     },
+//   });
+// });
+// app.get('/:id', (req, resp) => {
+//   resp.send('Hola ' + req.params.id);
+// });
+// app.post('/', (req, resp) => {
+//   req.body.id = 12;
+//   resp.send(req.body);
+// });
+// app.patch('/:id');
+// app.delete('/:id');
 
 app.use(
   (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
