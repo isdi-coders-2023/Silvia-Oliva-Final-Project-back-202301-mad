@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-import { config } from '../config.js';
+
 import createDebug from 'debug';
+import { config } from '../config.js';
 
 const debug = createDebug('PF:DBconnect');
 
