@@ -1,12 +1,17 @@
-name: Sonar
+name: SonarCloud Analysis
+
 on:
   push:
     branches:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 jobs:
-  sonarcloud:
+  SonarCloud:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
@@ -15,10 +20,18 @@ jobs:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: Install modules
         run: npm ci
+      - name: Testing coverage
+        run: npm run test:prod #Change for a valid npm script
+        env:
+          USER: ${{ secrets.USER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          CLUSTER: ${{ secrets.CLUSTER }}
+          NAME: ${{ secrets.NAME}}
+          SECRET: ${{ secrets.SECRET}}
       - name: Testing in production with coverage
         run: npm run test:prod #Change for a valid npm script
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarCloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
