@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { UserModel } from './users.mongo.model.js';
 import { UsersMongoRepo } from './users.mongo.repo.js';
 
@@ -18,6 +19,7 @@ describe('Given the User Repo ', () => {
 
       expect(UserModel.find).toHaveBeenCalled();
       expect(result).toEqual([]);
+      mongoose.disconnect();
     });
   });
 
@@ -28,14 +30,29 @@ describe('Given the User Repo ', () => {
       const result = await repo.queryId(id);
       expect(UserModel.findById).toHaveBeenCalled();
       expect(result).toEqual({ id: '1' });
+      mongoose.disconnect();
     });
   });
-  describe('When the method queryID is used and the id is wrong', () => {
+  describe('When the method queryId is use....', () => {
     test('Then it should throw an error ', async () => {
       (UserModel.findById as jest.Mock).mockResolvedValue(undefined);
       const id = '2';
       expect(async () => repo.queryId(id)).rejects.toThrow();
       expect(UserModel.findById).toHaveBeenCalled();
+      mongoose.disconnect();
+    });
+  });
+  describe('When the search method is used', () => {
+    test('Then, it should return the searched mocked data', async () => {
+      const mock = { id: '2' };
+      (UserModel.find as jest.Mock).mockResolvedValue(mock);
+      const result = await repo.search({
+        key: 'some',
+        value: 'xd',
+      });
+      expect(UserModel.find).toHaveBeenCalled();
+      expect(result).toEqual(mock);
+      mongoose.disconnect();
     });
   });
 
@@ -49,6 +66,7 @@ describe('Given the User Repo ', () => {
       const result = await repo.create(mockUser);
       expect(UserModel.create).toHaveBeenCalled();
       expect(result).toEqual([mockUser]);
+      mongoose.disconnect();
     });
   });
 
@@ -69,6 +87,7 @@ describe('Given the User Repo ', () => {
         id: '2',
         password: 'Juan',
       });
+      mongoose.disconnect();
     });
   });
 
@@ -81,6 +100,7 @@ describe('Given the User Repo ', () => {
 
       expect(() => repo.update(mockUser)).rejects.toThrow();
       expect(UserModel.findByIdAndUpdate).toHaveBeenCalled();
+      mongoose.disconnect();
     });
   });
 
@@ -96,6 +116,7 @@ describe('Given the User Repo ', () => {
 
       expect(() => repo.destroy(mockUsers)).rejects.toThrow();
       expect(UserModel.findByIdAndDelete).toHaveBeenCalled();
+      mongoose.disconnect();
     });
   });
 });
