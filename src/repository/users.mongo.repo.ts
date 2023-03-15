@@ -20,7 +20,7 @@ export class UsersMongoRepo implements Repo<User> {
 
   async query(): Promise<User[]> {
     debug('Instantiated at constructor at query method');
-    const data = await UserModel.find().populate(['friends', 'enemies']);
+    const data = await UserModel.find();
     return data;
   }
 
