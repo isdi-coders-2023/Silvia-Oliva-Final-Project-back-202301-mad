@@ -1,12 +1,10 @@
 import { Response, Request, NextFunction } from 'express';
 import createDebug from 'debug';
-
-import { Repo } from '../repository/repo.interface.js';
 import { Toy } from '../entities/toy.js';
-import { ToysMongoRepo } from '../repository/toys.mongo.repo.js';
-import { ToyModel } from '../repository/toys.mongo.model.js';
+import { Repo } from '../repository/repo.interface.js';
 import { HTTPError } from '../interfaces/error.js';
-const debug = createDebug('PF:controller:users');
+
+const debug = createDebug('PF:controller:toys');
 
 export class ToysController {
   constructor(public repo: Repo<Toy>) {
@@ -41,17 +39,36 @@ export class ToysController {
   }
 
   /// search create y update me faltan
-  async create(req: Request, res: Response, next: NextFunction): Promise<void> {
-    debug('create toy');
+  async create(
+    req: Request,
+    resp: Response,
+    next: NextFunction
+  ): Promise<void> {
+    // Add
     try {
+      debug('crear:post');
+      if (
+        !req.body.name ||
+        !req.body.animalModel ||
+        !req.body.height ||
+        !req.body.artist ||
+        !req.body.img
+      )
+        throw new HTTPError(401, 'Unauthorized', 'Data error');
+      debug('create toy');
+
       const toyInfo: Partial<Toy> = req.body;
-      const toyData = await this.repo.create(toyInfo);
-      res.status(201).json(toyData);
+      const toyData = await this.repo.create(req.body);
+      resp.status(201).json(toyData);
+      resp.json({
+        results: [toyInfo],
+      });
     } catch (error) {
       next(error);
     }
   }
 
+  // Change
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     debug('create toy');
     try {

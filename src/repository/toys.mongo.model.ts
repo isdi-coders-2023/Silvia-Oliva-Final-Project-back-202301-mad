@@ -18,6 +18,9 @@ const userSchema = new Schema<Toy>({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+  },
   img: {
     type: String,
     required: true,

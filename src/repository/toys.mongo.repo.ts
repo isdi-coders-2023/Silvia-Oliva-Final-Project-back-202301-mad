@@ -1,51 +1,52 @@
 import createDebug from 'debug';
-import { User } from '../entities/user.js';
+import { Toy } from '../entities/toy.js';
+import { ToyModel } from './toys.mongo.model.js';
 import { HTTPError } from '../interfaces/error.js';
-import { Repo } from './repo.interface';
-import { UserModel } from './users.mongo.model.js';
+import { Repo } from './repo.interface.js';
+
 const debug = createDebug('PF:repo:users');
-export class UsersMongoRepo implements Repo<User> {
-  private static instance: UsersMongoRepo;
-  public static getInstance(): UsersMongoRepo {
-    if (!UsersMongoRepo.instance) {
-      UsersMongoRepo.instance = new UsersMongoRepo();
+export class ToysMongoRepo implements Repo<Toy> {
+  private static instance: ToysMongoRepo;
+  public static getInstance(): ToysMongoRepo {
+    if (!ToysMongoRepo.instance) {
+      ToysMongoRepo.instance = new ToysMongoRepo();
     }
 
-    return UsersMongoRepo.instance;
+    return ToysMongoRepo.instance;
   }
 
   private constructor() {
     debug('Instantiated at constructor');
   }
 
-  async query(): Promise<User[]> {
+  async query(): Promise<Toy[]> {
     debug('Instantiated at constructor at query method');
-    const data = await UserModel.find();
+    const data = await ToyModel.find().populate([]);
     return data;
   }
 
-  async queryId(id: string): Promise<User> {
+  async queryId(id: string): Promise<Toy> {
     debug('Instantiated at constructor at queryId method');
-    const data = await UserModel.findById(id);
+    const data = await ToyModel.findById(id);
     if (!data) throw new HTTPError(404, 'Not found', 'Id not found in queryId');
     return data;
   }
 
-  async search(query: { key: string; value: unknown }): Promise<User[]> {
+  async search(query: { key: string; value: unknown }): Promise<Toy[]> {
     debug('Instantiated at constructor at search method');
-    const data = await UserModel.find({ [query.key]: query.value });
+    const data = await ToyModel.find({ [query.key]: query.value });
     return data;
   }
 
-  async create(info: Partial<User>): Promise<User> {
+  async create(info: Partial<Toy>): Promise<Toy> {
     debug('Instantiated at constructor at create method');
-    const data = await UserModel.create(info);
+    const data = await ToyModel.create(info);
     return data;
   }
 
-  async update(info: Partial<User>): Promise<User> {
+  async update(info: Partial<Toy>): Promise<Toy> {
     debug('Instantiated at constructor at update method');
-    const data = await UserModel.findByIdAndUpdate(info.id, info, {
+    const data = await ToyModel.findByIdAndUpdate(info.id, info, {
       new: true,
     });
     if (!data)
@@ -55,7 +56,7 @@ export class UsersMongoRepo implements Repo<User> {
 
   async destroy(id: string): Promise<void> {
     debug(id);
-    const data = await UserModel.findByIdAndDelete(id);
+    const data = await ToyModel.findByIdAndDelete(id);
     if (!data)
       throw new HTTPError(
         404,
