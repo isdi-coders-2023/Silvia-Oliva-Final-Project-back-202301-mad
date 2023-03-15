@@ -1,15 +1,19 @@
-import { HTTPError } from './error.js';
-describe('Given', () => {
-  let error: HTTPError;
+import { CustomError, HTTPError } from './error.js';
+
+describe('Given the error', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  let error: CustomError;
   beforeEach(() => {
-    error = new HTTPError(418, 'Tea Pot', '');
+    error = new HTTPError(418, 'mockError', 'mockMessage');
   });
-  test('should first', () => {
-    expect(error).toBeInstanceOf(Error);
-    expect(error).toBeInstanceOf(HTTPError);
-    expect(error).toHaveProperty('statusCode', 400);
-    expect(error).toHaveProperty('statusMessage', 'error');
-    expect(error).toHaveProperty('message', '');
-    expect(error).toHaveProperty('name', 'HTTPError');
+  describe('when we call it', () => {
+    test('then should throw an error', () => {
+      expect(error).toBeInstanceOf(Error);
+      expect(error).toBeInstanceOf(HTTPError);
+      expect(error).toHaveProperty('statusCode', 418);
+      expect(error).toHaveProperty('statusMessage', 'mockError');
+      expect(error).toHaveProperty('message', 'mockMessage');
+      expect(error).toHaveProperty('name', 'HTTPError');
+    });
   });
 });
