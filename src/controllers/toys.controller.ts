@@ -3,7 +3,7 @@ import createDebug from 'debug';
 import { Toy } from '../entities/toy.js';
 import { Repo } from '../repository/repo.interface.js';
 import { HTTPError } from '../interfaces/error.js';
-import { Auth, PayloadToken } from '../services/auth.js';
+
 const debug = createDebug('PF:controller:toys');
 
 export class ToysController {
@@ -44,6 +44,7 @@ export class ToysController {
     resp: Response,
     next: NextFunction
   ): Promise<void> {
+    // Add
     try {
       debug('crear:post');
       if (
@@ -67,6 +68,7 @@ export class ToysController {
     }
   }
 
+  // Change
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     debug('create toy');
     try {
