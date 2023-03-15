@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: Install modules
         run: npm ci
-      - name: Testing coverage
+      - name: Testing in production with coverage
         run: npm run test:prod #Change for a valid npm script
         env:
           DB_USER: ${{ secrets.DB_USER }}
@@ -28,8 +28,6 @@ jobs:
           DB_CLUSTER: ${{ secrets.DB_CLUSTER }}
           DB_NAME: ${{ secrets.DB_NAME}}
           SECRET: ${{ secrets.SECRET}}
-      - name: Testing in production with coverage
-        run: npm run test:prod #Change for a valid npm script
       - name: SonarCloud Scan
         uses: SonarSource/sonarCloud-github-action@master
         env:
