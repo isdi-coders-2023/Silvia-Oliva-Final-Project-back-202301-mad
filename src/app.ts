@@ -23,8 +23,16 @@ app.use((_req, _resp, next) => {
 });
 
 app.use('/users', usersRouter);
-app.use('/toys', toysRouter);
 
+app.use('/toys', toysRouter);
+app.get('/', (_req, resp) => {
+  resp.json({
+    info: 'Silvia-Oliva-Final-Project-back-202301-mad',
+    endpoints: {
+      users: '/users',
+    },
+  });
+});
 app.use(
   (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
     debug('Soy el middleware de errores');
