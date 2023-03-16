@@ -34,7 +34,7 @@ app.get('/', (_req, resp) => {
 });
 app.use(
   (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
-    debug('Soy el middleware de errores');
+    debug('Soy el middleware de error');
     const status = error.statusCode || 500;
     const statusMessage = error.statusMessage || 'Internal server error';
     resp.status(status);
