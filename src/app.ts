@@ -1,4 +1,3 @@
-import path from 'path';
 import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -23,29 +22,8 @@ app.use((_req, _resp, next) => {
   next();
 });
 
-// Debug({ __dirname });
-// app.use(express.static(path.resolve(__dirname, 'public')));
-
 app.use('/users', usersRouter);
 app.use('/toys', toysRouter);
-
-// App.get('/', (_req, resp) => {
-//   resp.json({
-//     info: 'Silvia-Oliva-Final-Project-back-202301-mad',
-//     endpoints: {
-//       users: '/users',
-//     },
-//   });
-// });
-// app.get('/:id', (req, resp) => {
-//   resp.send('Hola ' + req.params.id);
-// });
-// app.post('/', (req, resp) => {
-//   req.body.id = 12;
-//   resp.send(req.body);
-// });
-// app.patch('/:id');
-// app.delete('/:id');
 
 app.use(
   (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
