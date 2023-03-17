@@ -38,7 +38,6 @@ export class ToysController {
     }
   }
 
-  /// search create y update me faltan
   async create(
     req: Request,
     resp: Response,
@@ -46,12 +45,13 @@ export class ToysController {
   ): Promise<void> {
     // Add
     try {
-      debug('crear:post');
+      debug('add:post');
       if (
         !req.body.name ||
         !req.body.animalModel ||
         !req.body.height ||
         !req.body.artist ||
+        // !req.description ||
         !req.body.img
       )
         throw new HTTPError(401, 'Unauthorized', 'Data error');
