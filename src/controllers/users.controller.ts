@@ -56,7 +56,8 @@ export class UsersController {
 
   async login(req: Request, resp: Response, next: NextFunction) {
     try {
-      debug('login:post');
+      debug('register:post', req.body);
+
       if (!req.body.email || !req.body.passwd)
         throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
       const data = await this.repo.search({
@@ -76,6 +77,27 @@ export class UsersController {
       resp.status(202);
       resp.json({
         token,
+      });
+      debug(token);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async update(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('update-method');
+
+      if (!req.params.id)
+        throw new HTTPError(404, 'Not found', 'Not found id user in params');
+
+      req.body.id = req.params.id;
+
+      const userData = await this.repo.update(req.body.id);
+
+      resp.status(201);
+      resp.json({
+        results: [userData],
       });
     } catch (error) {
       next(error);
