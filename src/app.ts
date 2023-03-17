@@ -17,11 +17,6 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors(corsOptions));
 
-app.use((_req, _resp, next) => {
-  debug('Soy un middleware');
-  next();
-});
-
 app.use('/users', usersRouter);
 app.use('/toys', toysRouter);
 app.get('/', (_req, resp) => {
@@ -34,7 +29,7 @@ app.get('/', (_req, resp) => {
 });
 app.use(
   (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
-    debug('Soy el middleware de errores');
+    debug('Soy el middleware de error');
     const status = error.statusCode || 500;
     const statusMessage = error.statusMessage || 'Internal server error';
     resp.status(status);
