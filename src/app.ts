@@ -16,12 +16,12 @@ const corsOptions = {
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors(corsOptions));
-
+app.use(express.static('public'));
 app.use('/users', usersRouter);
 app.use('/toys', toysRouter);
 app.get('/', (_req, resp) => {
   resp.json({
-    info: 'Silvia-Oliva-Final-Project-back-202301-mad',
+    info: 'Amigurumis',
     endpoints: {
       users: '/users',
     },
