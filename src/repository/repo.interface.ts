@@ -4,5 +4,15 @@ export interface Repo<T> {
   search(query: { key: string; value: unknown }): Promise<T[]>;
   create(_info: Partial<T>): Promise<T>;
   update(_info: Partial<T>): Promise<T>;
+
+  destroy(_id: string): Promise<void>;
+}
+export interface RepoToys<T> {
+  query(): Promise<T[]>;
+  queryId(_id: string): Promise<T>;
+  search(query: { key: string; value: unknown }): Promise<T[]>;
+  create(_info: Partial<T>): Promise<T>;
+  update(_info: Partial<T>): Promise<T>;
+  // Edit(_info: Partial<T>): Promise<T>;
   destroy(_id: string): Promise<void>;
 }

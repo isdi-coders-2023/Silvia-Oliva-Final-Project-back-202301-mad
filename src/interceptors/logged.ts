@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { HTTPError } from '../interfaces/error.js';
 import { Auth, PayloadToken } from '../services/auth.js';
 import createDebug from 'debug';
-const debug = createDebug('RRSS:interceptor:logged');
+const debug = createDebug('PF:interceptor:logged');
 export interface RequestPlus extends Request {
   info?: PayloadToken;
 }

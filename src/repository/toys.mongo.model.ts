@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Toy } from '../entities/toy.js';
 
-const userSchema = new Schema<Toy>({
+const toySchema = new Schema<Toy>({
   name: {
     type: String,
     required: true,
@@ -11,7 +11,7 @@ const userSchema = new Schema<Toy>({
     required: true,
   },
   height: {
-    type: Number,
+    type: String,
     required: true,
   },
   artist: {
@@ -23,11 +23,10 @@ const userSchema = new Schema<Toy>({
   },
   img: {
     type: String,
-    required: true,
   },
 });
 
-userSchema.set('toJSON', {
+toySchema.set('toJSON', {
   transform(_document, returnedObject) {
     returnedObject.id = returnedObject._id;
     delete returnedObject.__v;
@@ -36,4 +35,4 @@ userSchema.set('toJSON', {
   },
 });
 
-export const ToyModel = model('toy', userSchema, 'toys');
+export const ToyModel = model('toy', toySchema, 'toys');

@@ -1,7 +1,6 @@
 import debug from 'debug';
 import { Router } from 'express';
 import { ToysController } from '../controllers/toys.controller.js';
-
 import { ToysMongoRepo } from '../repository/toys.mongo.repo.js';
 
 // eslint-disable-next-line new-cap

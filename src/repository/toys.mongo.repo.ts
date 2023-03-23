@@ -2,10 +2,10 @@ import createDebug from 'debug';
 import { Toy } from '../entities/toy.js';
 import { ToyModel } from './toys.mongo.model.js';
 import { HTTPError } from '../interfaces/error.js';
-import { Repo } from './repo.interface.js';
+import { RepoToys } from './repo.interface.js';
 
 const debug = createDebug('PF:repo:users');
-export class ToysMongoRepo implements Repo<Toy> {
+export class ToysMongoRepo implements RepoToys<Toy> {
   private static instance: ToysMongoRepo;
   public static getInstance(): ToysMongoRepo {
     if (!ToysMongoRepo.instance) {

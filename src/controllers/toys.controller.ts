@@ -46,15 +46,7 @@ export class ToysController {
     // Add
     try {
       debug('add:post');
-      if (
-        !req.body.name ||
-        !req.body.animalModel ||
-        !req.body.height ||
-        !req.body.artist ||
-        // !req.description ||
-        !req.body.img
-      )
-        throw new HTTPError(401, 'Unauthorized', 'Data error');
+      if (!req.body) throw new HTTPError(401, 'Unauthorized', 'Data error');
       debug('create toy');
 
       const toyInfo: Partial<Toy> = req.body;
@@ -79,6 +71,26 @@ export class ToysController {
       next(error);
     }
   }
+
+  // Async edit(req: Request, resp: Response, next: NextFunction) {
+  //   try {
+  //     debug('edit-method');
+
+  //     if (!req.params.id)
+  //       throw new HTTPError(404, 'Not found', 'Not found id toy in params');
+
+  //     req.body.id = req.params.id;
+
+  //     const toyData = await this.repo.create(req.body.id);
+
+  //     resp.status(201);
+  //     resp.json({
+  //       results: [toyData],
+  //     });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
   async delete(req: Request, resp: Response, next: NextFunction) {
     try {

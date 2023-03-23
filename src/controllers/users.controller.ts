@@ -40,10 +40,10 @@ export class UsersController {
   async register(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('register:post');
+      console.log(req);
       if (!req.body.email || !req.body.passwd)
         throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
       req.body.passwd = await Auth.hash(req.body.passwd);
-      req.body.things = [];
       const data = await this.repo.create(req.body);
       resp.status(201);
       resp.json({
@@ -74,9 +74,10 @@ export class UsersController {
         role: 'admin',
       };
       const token = Auth.createJWT(payload);
+      const user = data[0];
       resp.status(202);
       resp.json({
-        token,
+        results: [token, user],
       });
       debug(token);
     } catch (error) {
