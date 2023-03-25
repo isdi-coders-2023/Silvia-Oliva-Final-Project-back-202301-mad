@@ -1,7 +1,6 @@
 import { CustomError, HTTPError } from './error.js';
 
 describe('Given the error', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let error: CustomError;
   beforeEach(() => {
     error = new HTTPError(418, 'mockError', 'mockMessage');
