@@ -21,7 +21,7 @@ export class ToysMongoRepo implements RepoToys<Toy> {
 
   async query(): Promise<Toy[]> {
     debug('Instantiated at constructor at query method');
-    const data = await ToyModel.find().populate([]);
+    const data = await ToyModel.find();
     return data;
   }
 

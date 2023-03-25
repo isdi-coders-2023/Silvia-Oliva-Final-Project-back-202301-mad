@@ -67,6 +67,7 @@ describe('Given the Toys Repo ', () => {
         artist: 'pepe',
         description: 'pepe',
         img: 'pepe',
+        email: '2',
       };
       const result = await repo.create(mockToy);
       expect(ToyModel.create).toHaveBeenCalled();
