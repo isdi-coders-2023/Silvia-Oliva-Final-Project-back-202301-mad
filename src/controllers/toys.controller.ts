@@ -31,7 +31,7 @@ export class ToysController {
 
       const data = await this.repo.queryId(getId);
       resp.json({
-        results: data,
+        results: [data],
       });
     } catch (error) {
       next(error);
@@ -106,4 +106,33 @@ export class ToysController {
       next(error);
     }
   }
+
+  //  TOODO async getByFilterWithPaginationAndOrder(
+  //   req: Request,
+  //   resp: Response,
+  //   next: NextFunction
+  // ) {
+  //   try {
+  //     debug('getByFilterWithPaginationAndOrder');
+  //     const data = await this.repo.getByFilterWithPaginationAndOrder(req.body);
+  //     resp.json({
+  //       results: [data],
+  //     });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
+
+  // async countFilteredRecords(req: Request, resp: Response, next: NextFunction) {
+  //   try {
+  //     debug('countFilteredRecords-method');
+  //     // TODO const data = await this.repo.countFilteredRecords(req.body);
+  //     resp.status(200);
+  //     resp.json({
+  //       results: [],
+  //     });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }

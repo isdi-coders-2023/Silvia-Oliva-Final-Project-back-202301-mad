@@ -15,4 +15,5 @@ export interface RepoToys<T> {
   update(_info: Partial<T>): Promise<T>;
   // Edit(_info: Partial<T>): Promise<T>;
   destroy(_id: string): Promise<void>;
+  countRecords(): Promise<number>;
 }

@@ -109,7 +109,7 @@ export class UsersController {
     try {
       debug('delete');
       const deleteId = req.params.id;
-      debug(deleteId);
+      // Debug(deleteId);
 
       const data = await this.repo.destroy(deleteId);
       resp.json({

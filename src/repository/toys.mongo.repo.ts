@@ -5,7 +5,7 @@ import { HTTPError } from '../interfaces/error.js';
 import { RepoToys } from './repo.interface.js';
 
 const debug = createDebug('PF:repo:users');
-export class ToysMongoRepo implements RepoToys<Toy> {
+export class ToysMongoRepo {
   private static instance: ToysMongoRepo;
   public static getInstance(): ToysMongoRepo {
     if (!ToysMongoRepo.instance) {
@@ -64,4 +64,33 @@ export class ToysMongoRepo implements RepoToys<Toy> {
         'Delete not possible: id not found'
       );
   }
+
+  // Async getByFilterWithPaginationAndOrder(query: {
+  //   filterField: string;
+  //   filterValue: string;
+  //   filterSet: number;
+  //   filterRecordsPerSet: number;
+  //   orderField: string;
+  // }): Promise<Toy[]> {
+  //   debug('Instantiated at constructor at getByFilterWithPagination method');
+  //   const data = await ToyModel.find({
+  //     [query.filterField]: query.filterValue,
+  //   })
+  //     .skip((query.filterSet - 1) * query.filterRecordsPerSet)
+  //     .limit(query.filterRecordsPerSet)
+  //     .sort(query.orderField);
+
+  //   return data;
+  // }
+
+  // async countFilteredRecords(query: {
+  //   filterField: string;
+  //   filterValue: string;
+  // }): Promise<number> {
+  //   debug('Instantiated at constructor at count method');
+  //   const data = await ToyModel.find({
+  //     [query.filterField]: query.filterValue,
+  //   }).countDocuments();
+  //   return data;
+  // }
 }
