@@ -52,16 +52,16 @@ describe('Given the user controller', () => {
       expect(resp.json).toHaveBeenCalled();
     });
 
-    // Test('Then if there is no user id in the req.params, it should be catch the error and next function have been called', async () => {
-    //   const req = {
-    //     params: {
-    //       id: undefined,
-    //     },
-    //   } as unknown as Request;
+    test('Then if there is no user id in the req.params, it should be catch the error and next function have been called', async () => {
+      const req = {
+        params: {
+          id: undefined,
+        },
+      } as unknown as Request;
 
-    //   await controller.getById(req, resp, next);
-    //   expect(next).toHaveBeenCalled();
-    // });
+      await controller.getById(req, resp, next);
+      expect(next).toHaveBeenCalled();
+    });
   });
 
   describe('When the register method is called', () => {
