@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { usersRouter } from './routers/users.router.js';
@@ -27,20 +27,18 @@ app.get('/', (_req, resp) => {
     },
   });
 });
-app.use(
-  (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
-    debug('Soy el middleware de error');
-    const status = error.statusCode || 500;
-    const statusMessage = error.statusMessage || 'Internal server error';
-    resp.status(status);
-    resp.json({
-      error: [
-        {
-          status,
-          statusMessage,
-        },
-      ],
-    });
-    debug(status, statusMessage, error.message);
-  }
-);
+app.use((error: CustomError, _req: Request, resp: Response) => {
+  debug('Soy el middleware de error');
+  const status = error.statusCode || 500;
+  const statusMessage = error.statusMessage || 'Internal server error';
+  resp.status(status);
+  resp.json({
+    error: [
+      {
+        status,
+        statusMessage,
+      },
+    ],
+  });
+  debug(status, statusMessage, error.message);
+});
