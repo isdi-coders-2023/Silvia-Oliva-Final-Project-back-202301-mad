@@ -1,4 +1,5 @@
-#Backend con Node.js, TypeScript y MongoDB
+#Backend Amigurumis
+con Node.js, TypeScript y MongoDB
 Este es un ejemplo de cómo crear un backend utilizando Node.js, TypeScript y MongoDB. En este proyecto se utilizan las siguientes tecnologías y herramientas:
 
 Node.js: plataforma para desarrollar aplicaciones en JavaScript del lado del servidor.
